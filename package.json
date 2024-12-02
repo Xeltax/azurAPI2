@@ -10,7 +10,8 @@
     "@azure/cosmos": "^4.2.0",
     "@azure/functions": "^4.6.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "@azure/storage-blob": "^12.26.0"
   },
   "main": "src/{index.js,functions/*.js}"
 }
