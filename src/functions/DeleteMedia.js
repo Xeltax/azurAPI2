@@ -9,29 +9,29 @@ app.http('DeleteMedia', {
         const fileName = request.params.filename
 
         if (!fileName) {
-            console.error('No file name provided')
+            context.error('No file name provided')
             return {
                 status: 400,
                 body: "File name requiered in path.",
             };
         }
 
-        console.log(`Trying to delete blob with name ${fileName}`)
+        context.log(`Trying to delete blob media with name ${fileName}`)
         try {
             const container = getMediaBlobContainer()
             const blob = container.getBlobClient(fileName)
             
-            console.log(`Starting to delete blob '${blob.name}'`)
+            context.log(`Starting to delete blob media '${blob.name}'`)
             await blob.delete({
                 deleteSnapshots: "include"
             })
 
-            console.log(`Successfully delete Blob '${blob.name}'`)
+            context.log(`Successfully delete Blob media '${blob.name}'`)
             return {
                 status: 204
             }
         } catch (error) {
-            console.error(error)
+            context.error(error)
             if (error.statusCode === 404) {
                 return {
                     status: 404,

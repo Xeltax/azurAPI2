@@ -1,5 +1,5 @@
 const { app } = require('@azure/functions');
-const { getMediaBlob, getMediaBlobContainer } = require('../shared/storageAccount');
+const { getMediaBlobContainer } = require('../shared/storageAccount');
 
 app.http('GetMedia', {
     methods: ['GET'],
@@ -9,27 +9,27 @@ app.http('GetMedia', {
         const fileName = request.params.filename
 
         if (!fileName) {
-            console.error('No file name provided')
+            context.error('No file name provided')
             return {
                 status: 400,
                 body: "File name requiered in path.",
             };
         }
 
-        console.log(`Trying to get blob with name ${fileName}`)
+        context.log(`Trying to get blob media with name ${fileName}`)
         try {
             const container = getMediaBlobContainer()
             const blob = container.getBlobClient(fileName)
             const downloadedBlob = await blob.download()
 
-            console.log(`Starting to fetch blob '${blob.name}'`)
+            context.log(`Starting to fetch blob media '${blob.name}'`)
             const chunks = []
             for await (const chunk of downloadedBlob.readableStreamBody) {
                 chunks.push(chunk)
             }
             const blobData = Buffer.concat(chunks) 
 
-            console.log(`Successfully retrieved Blob '${blob.name}'`)
+            context.log(`Successfully retrieved Blob media '${blob.name}'`)
             return {
                 status: 200,
                 headers: {
@@ -39,7 +39,7 @@ app.http('GetMedia', {
                 body: blobData
             }
         } catch (error) {
-            console.error(error)
+            context.error(error)
             if (error.statusCode === 404) {
                 return {
                     status: 404,
@@ -51,6 +51,5 @@ app.http('GetMedia', {
                 body: `Error while trying to retrieve media blob with name '${fileName}'.`
             };
         }
-    
     }
 });

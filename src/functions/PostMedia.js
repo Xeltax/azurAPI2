@@ -15,7 +15,7 @@ app.http('PostMedia', {
         const stream = Readable.from(body)                  // Contient le contenu du fichier
 
         try {
-            console.log(`Starting upload blob media '${blobName}'`)
+            context.log(`Starting upload blob media '${blobName}'`)
 
             const container = getMediaBlobContainer()
             const blockBlobClient = container.getBlockBlobClient(blobName)
@@ -23,7 +23,7 @@ app.http('PostMedia', {
                 blobHTTPHeaders: { blobContentType: contentType }
             })
 
-            console.log(`Successfully upload blob media '${blobName}'`)
+            context.log(`Successfully upload blob media '${blobName}'`)
             return {
                 status: 201,
                 body: JSON.stringify({
@@ -32,12 +32,11 @@ app.http('PostMedia', {
                 })
             }
         } catch (error) {
-            console.error(error)
+            context.error(error)
             return {
                 status: 500,
                 body: 'Error while uploading your media'
             };
         }
-    
     }
 });
