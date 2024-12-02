@@ -1,5 +1,5 @@
 const { app } = require('@azure/functions');
-const { getMediaBlob } = require('../shared/storageAccount');
+const { getMediaBlob, getMediaBlobContainer } = require('../shared/storageAccount');
 
 app.http('GetMedia', {
     methods: ['GET'],
@@ -18,7 +18,8 @@ app.http('GetMedia', {
 
         console.log(`Trying to get blob with name ${fileName}`)
         try {
-            const blob = getMediaBlob(fileName);
+            const container = getMediaBlobContainer()
+            const blob = container.getBlobClient(fileName)
             const downloadedBlob = await blob.download()
 
             console.log(`Starting to fetch blob '${blob.name}'`)

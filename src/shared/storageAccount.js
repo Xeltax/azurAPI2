@@ -3,8 +3,8 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const client = BlobServiceClient.fromConnectionString(process.env.STORAGE_ACCOUNT);
 const container = client.getContainerClient('media');
 
-const getMediaBlob = (fileName) => {
-    return container.getBlobClient(fileName);
+const getMediaBlobContainer = () => {
+    return client.getContainerClient('media')
 }
 
-module.exports = { getMediaBlob }
+module.exports = { getMediaBlobContainer, container }
