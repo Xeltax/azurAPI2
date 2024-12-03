@@ -1,13 +1,22 @@
 const { app } = require('@azure/functions');
 const { getMediaBlobContainer } = require('../shared/storageAccount');
+const { verify_JWT } = require('../shared/jwt');
 
 app.http('GetMedia', {
     methods: ['GET'],
     authLevel: 'anonymous',
     route: 'media/{filename}',
     handler: async (request, context) => {
-        const fileName = request.params.filename
+        
+        const JWT_verification = verify_JWT(request)
+        if (JWT_verification.status !== 200) {
+            return {
+                status: JWT_verification.status,
+                body: JWT_verification.body
+            };
+        }
 
+        const fileName = request.params.filename
         if (!fileName) {
             context.error('No file name provided')
             return {
