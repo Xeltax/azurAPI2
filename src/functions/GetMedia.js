@@ -1,6 +1,7 @@
 const { app } = require('@azure/functions');
 const { getMediaBlobContainer } = require('../shared/storageAccount');
 const { verify_JWT } = require('../shared/jwt');
+const { getContainer } = require('../shared/database');
 
 app.http('GetMedia', {
     methods: ['GET'],
@@ -15,6 +16,7 @@ app.http('GetMedia', {
                 body: JWT_verification.body
             };
         }
+        requestUserData = JWT_verification.body
 
         const fileName = request.params.filename
         if (!fileName) {
@@ -25,20 +27,89 @@ app.http('GetMedia', {
             };
         }
 
-        context.log(`Trying to get blob media with name ${fileName}`)
+        // Récupération de la relation
+        let userMediaRelation
+        try {
+            context.info('Starting to find blob relation data')
+
+            const relationContainer = getContainer('userMediaRelation')
+            const relationQuery = {
+                query: 'SELECT * FROM c WHERE c.blobName = @blobName',
+                parameters: [{ name: '@blobName', value: fileName }]
+            }
+            const { resources: relations } = await relationContainer.items.query(relationQuery).fetchAll()
+            
+            if (relations.length === 0) {
+                context.error(`No relation found for blob ${fileName}`)
+                return {
+                    status: 404,
+                    body: `No media found with name ${fileName}`
+                }
+            }
+
+            userMediaRelation = relations[0]
+        } catch (error) {
+            context.error(error)
+            return {
+                status: 500,
+                body: 'Error occured while retrive blob media'
+            }
+        }
+        context.info('Successfully retrieve blob media relation')
+
+        // Récupération des donnée de l'utilisateur
+        context.info(`Try to get user data with id ${userMediaRelation.userId}`)
+        let mediaRelatedUser
+        try {
+            const usersContainer = getContainer('users')
+            const query = {
+                query: 'SELECT * FROM c WHERE c.id = @userId',
+                parameters: [{ name: '@userId', value: userMediaRelation.userId }]
+            };
+            const { resources: existingUsers } = await usersContainer.items.query(query).fetchAll();
+
+            // Vérifiez qu'un utilisateur est trouvé
+            if (existingUsers.length === 0) {
+                throw Error('Related user not found')
+            }
+            mediaRelatedUser = existingUsers[0];
+        } catch (error) {
+            context.error(error)
+            return {
+                status: 500,
+                body: 'Error occured while retrive blob media'
+            }
+        }
+
+        context.info(`Successfully retrive user data for $ mediaRelatedUser.username}`)
+        if (mediaRelatedUser.role === 'private') {
+            if (mediaRelatedUser.id === requestUserData.userId) {
+                context.warn(`User ${mediaRelatedUser.username} request his own resource`)
+            } else {
+                context.warn(`User ${mediaRelatedUser.username} has a private account`)
+                return {
+                    status: 401,
+                    body: 'Unauthorized to access to this resource'
+                }
+            }
+        } else {
+            context.info(`User ${mediaRelatedUser.username} has a public account`)
+        }
+
+        context.info(`Try to get blob media with name ${fileName}`)
         try {
             const container = getMediaBlobContainer()
             const blob = container.getBlobClient(fileName)
             const downloadedBlob = await blob.download()
 
-            context.log(`Starting to fetch blob media '${blob.name}'`)
+            context.info(`Starting to fetch blob media '${blob.name}'`)
             const chunks = []
             for await (const chunk of downloadedBlob.readableStreamBody) {
                 chunks.push(chunk)
             }
             const blobData = Buffer.concat(chunks) 
 
-            context.log(`Successfully retrieved Blob media '${blob.name}'`)
+            context.info(`Successfully retrieved Blob media '${blob.name}'`)
             return {
                 status: 200,
                 headers: {
