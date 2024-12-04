@@ -8,7 +8,8 @@ Walid FADI
 
 ## Description
 
-Ce projet a pour but de fournir un backend pour la gestion d'application de réseaux sociaux.
+Le projet consiste à développer une plateforme backend "headless" pour la gestion de contenu, principalement destinée aux créateurs de contenu. Ce backend est construit avec les Azure Functions pour fournir une architecture serverless, intégrant Azure Cosmos DB pour la gestion des données et Azure Storage Account pour le stockage des médias.
+
 
 ## Fonctionnalités
 
