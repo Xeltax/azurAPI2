@@ -11,6 +11,7 @@ const { InvocationContext, HttpRequest } = require('@azure/functions');
  * @param {any} requestUserData 
  */
 const postMedia = async (context, request, requestUserData) => {
+
     let blockBlobClient;
     try {
         const contentType = request.headers['content-type'] // Détecte le type MIME
@@ -29,6 +30,7 @@ const postMedia = async (context, request, requestUserData) => {
         context.info(`Successfully upload blob media '${blobName}'`)
 
     } catch (error) {
+        context.error('Error while create new blob')
         throw error
     }
 
@@ -48,6 +50,7 @@ const postMedia = async (context, request, requestUserData) => {
 
         context.log(`Successfully related blob ${blockBlobClient.name} to user ${requestUserData.username}`)
     } catch (error) {
+        context.error('Error while create blob media to user relation')
         throw error
     }
 

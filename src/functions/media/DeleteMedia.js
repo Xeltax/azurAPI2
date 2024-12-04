@@ -33,14 +33,8 @@ const deleteMedia = async (context, requestUserData, fileName) => {
         }
         userMediaRelation = relations[0]
     } catch (error) {
-        context.error('Error occured while retrive blob media relation')
-        context.error(error)
-        return {
-            status: 500,
-            body: JSON.stringify({
-                message: 'Error occured while deleting blob media'
-            })
-        }
+        context.error('Error while retrieve media relations')
+        throw error
     }
     context.info(`Successfully retrieve blob media relation for ${userMediaRelation.blobName}`)
 
@@ -90,6 +84,7 @@ const deleteMedia = async (context, requestUserData, fileName) => {
                 })
             }
         }
+        context.error(`Error while deleting blob with name ${fileName}`)
         throw error
     }
 }

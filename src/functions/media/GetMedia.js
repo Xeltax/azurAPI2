@@ -10,6 +10,7 @@ const { getContainer } = require('../../shared/database');
  * @returns 
  */
 const getMedia = async (context, requestUserData, fileName) => {
+
     // Récupération de la relation
     let userMediaRelation
     try {
@@ -26,12 +27,14 @@ const getMedia = async (context, requestUserData, fileName) => {
             context.error(`No relation found for blob ${fileName}`)
             return {
                 status: 404,
-                body: `No media found with name ${fileName}`
+                body: JSON.stringify({
+                    message: `No media found with name ${fileName}`
+                })
             }
         }
-
         userMediaRelation = relations[0]
     } catch (error) {
+        context.error('Error while retrieve media relations')
         throw error
     }
     context.info('Successfully retrieve blob media relation')
@@ -49,19 +52,21 @@ const getMedia = async (context, requestUserData, fileName) => {
 
         // Vérifiez qu'un utilisateur est trouvé
         if (existingUsers.length === 0) {
-            throw Error('Related user not found')
+            throw Error(`No users related to the media ${fileName} were found`)
         }
         mediaRelatedUser = existingUsers[0];
     } catch (error) {
+        context.error('Error while retrieve related user data')
         throw error
     }
 
+    // Gestion des comptes privés / publiques
     context.info(`Successfully retrive user data for $ mediaRelatedUser.username}`)
     if (mediaRelatedUser.role === 'private') {
         if (mediaRelatedUser.id === requestUserData.userId) {
             context.warn(`User ${mediaRelatedUser.username} request his own resource`)
         } else {
-            context.warn(`User ${mediaRelatedUser.username} has a private account`)
+            context.warn(`User ${mediaRelatedUser.username} has a private account but ${requestUserData.username} try to access to his content`)
             return {
                 status: 401,
                 body: JSON.stringify({
@@ -73,6 +78,7 @@ const getMedia = async (context, requestUserData, fileName) => {
         context.info(`User ${mediaRelatedUser.username} has a public account`)
     }
 
+    // Récupération et lecture du blob
     context.info(`Try to get blob media with name ${fileName}`)
     try {
         const container = getMediaBlobContainer()
@@ -96,16 +102,16 @@ const getMedia = async (context, requestUserData, fileName) => {
             body: blobData
         }
     } catch (error) {
-        context.error(error)
         if (error.statusCode === 404) {
-            context.warn(`Media blob not found with name '${fileName}'`)
+            context.warn(`Media blob not found with name ${fileName}`)
             return {
                 status: 404,
                 body: JSON.stringify({
-                    message: `Media blob not found with name '${fileName}'`
+                    message: `Media blob not found with name ${fileName}`
                 })
             }
         }
+        context.error(`Error while reading blob with name ${fileName}`)
         throw error
     }
 }

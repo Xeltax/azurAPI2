@@ -21,9 +21,9 @@ app.http('Media', {
 
         const fileName = request.params?.filename
         context.info(`${request.method} - /media${fileName ? '/' + fileName : ''}`)
-        
-        if (!fileName && request.method in ['GET', 'DELETE']) {
-            context.error(`File name is required to ${request.method.toLowerCase} media`)
+
+        if (fileName === undefined && ['GET', 'DELETE'].includes(request.method)) {
+            context.error(`File name is required to ${request.method.toLowerCase()} media`)
             return {
                 status: 400,
                 body: JSON.stringify({
