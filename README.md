@@ -77,7 +77,7 @@ Les routes Login et Register sont accessibles sans token.
 ### Headers
 
 Mettre votre clé d'accès à l'API dans le header de chaque requête. Pour ce projet et afin de pouvoir utilisé l'API pour la correction, voici la clé d'API à utiliser :
-fb18d458ee8b49449f964ed7038c738e
+35c925337c4a441b95f8ee2c8c38aff4
 
 ```http
 Ocp-Apim-Subscription-Key:YOUR_SUBSCRIPTION_KEY
