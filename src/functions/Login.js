@@ -54,7 +54,7 @@ app.http('Login', {
             
             // Générer un JWT
             const token = jwt.sign(
-                { userId: user.id, username: user.username },
+                { userId: user.id, username: user.username, role : user.role },
                 SECRET_KEY,
                 { expiresIn: "1h" } // Durée de validité
             );

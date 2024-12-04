@@ -16,11 +16,6 @@ function verify_JWT(request) {
 
         const token = authHeader.split(' ')[1];
 
-        
-        console.log("SECRET_KEY in verify_JWT:", SECRET_KEY);
-        console.log(token)
-        console.log(SECRET_KEY)
-        
         // Vérifier et décoder le token JWT
         let decodedToken;
         try {
@@ -32,14 +27,12 @@ function verify_JWT(request) {
             };
         }
 
-        // Lire tous les utilisateurs de la base de données
-
         return {
             status: 200,
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: true
+            body: decodedToken
         };
     } catch (error) {
         console.error("Erreur dans verify_JWT :", error);

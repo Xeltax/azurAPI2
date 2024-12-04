@@ -29,6 +29,7 @@ app.http('Register', {
             const newUser = {
                 id: Math.random().toString(36).substr(2, 9), // Génération d'un ID unique
                 username : userData.username,
+                role : userData.role,
                 passwordHash
             };
 
