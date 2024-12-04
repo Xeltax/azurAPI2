@@ -32,7 +32,7 @@ Ce projet a pour but de fournir un backend pour la gestion d'application de rés
 - Azure API Management
   - Gestion de l'API avec Azure API Management afin de centralisé et sécurisé l'accès et les appels à l'API.
 
-![Diagramme Azur](azur.png)
+![Azur Diagram](https://i.imgur.com/iw2e9F6.png)
 
 ## Prérequis (Modification des fonctions)
 
