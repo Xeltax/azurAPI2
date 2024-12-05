@@ -5,7 +5,6 @@ const { InvocationContext, HttpRequest } = require('@azure/functions');
 
 
 /**
- * 
  * @param {InvocationContext} context 
  * @param {HttpRequest} request 
  * @param {any} requestUserData 

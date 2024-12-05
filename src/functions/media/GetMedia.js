@@ -3,7 +3,6 @@ const { getMediaBlobContainer } = require('../../shared/storageAccount');
 const { getContainer } = require('../../shared/database');
 
 /**
- * 
  * @param {InvocationContext} context 
  * @param {any} requestUserData 
  * @param {any} fileName 
@@ -61,7 +60,7 @@ const getMedia = async (context, requestUserData, fileName) => {
     }
 
     // Gestion des comptes privés / publiques
-    context.info(`Successfully retrive user data for $ mediaRelatedUser.username}`)
+    context.info(`Successfully retrive user data for ${mediaRelatedUser.username}`)
     if (mediaRelatedUser.role === 'private') {
         if (mediaRelatedUser.id === requestUserData.userId) {
             context.warn(`User ${mediaRelatedUser.username} request his own resource`)

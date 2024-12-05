@@ -3,7 +3,6 @@ const { getContainer } = require('../../shared/database');
 const { InvocationContext } = require('@azure/functions');
 
 /**
- * 
  * @param {InvocationContext} context 
  * @param {any} requestUserData 
  * @param {string} fileName
