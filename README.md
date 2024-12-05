@@ -85,7 +85,7 @@ Ocp-Apim-Subscription-Key:YOUR_SUBSCRIPTION_KEY
 _Cette clé est déjà ajoutée aux requêtes de la collection postman associée au projet_
 
 ### Body
-Création de compte (POST) : '/register'
+#### Création de compte (POST) : '/register'
 
 ```json
 {
@@ -103,7 +103,7 @@ Réponse :
   "message": "Compte créé avec succès"
 }
 ```
-Connexion (POST) : '/login'
+#### Connexion (POST) : '/login'
 
 ```json
 {
@@ -118,28 +118,133 @@ Réponse :
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
-Récupération de médias (GET) : '/media'
+> Pour simplifier l'utilisation de la collection Postman, il est possible d'ajouter ce Bearer token à la racine de la collection pour que toutes les requêtes exécutée héritent de l'autorisation
+> <details>
+> <summary>Comment configurer la collection ?</summary>
+> <img src="https://i.imgur.com/svz8i9H.png" alt="Postman collection config" />
+>  <p>Les requêtes doivent maintenant hérité de l'autorisation</p>
+>  <img src="https://i.imgur.com/RDTMtqj.png" alt="Autorisation de requête"/>
+></details>
 
-⚠️ Ne pas oublier de mettre le JWT dans le header de la requête. Exemple : 
-    
-```http
-    Authorization
-    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-   ```
+#### Création d'un média (POST): '/media'
 
-Réponse :
+Body: Un fichier binaire tel qu'une image, une vidéo ou une musique
 
+
+Réponse:
 ```json
 {
-  "status": 200,
-  "message": "Médias récupérés avec succès",
-  "data": [
-    {
-      "id": "1",
-      "url": "https://url.com",
-      "type": "image"
-    }
-  ]
+  "name": "upload-<timestamp>"
 }
 ```
 
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Récupération d'un média (GET) : '/media/{filename}'
+
+Réponse: L'image demmandée
+
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Suppression d'un média (DELETE) : '/media/{filename}'
+
+Body: Aucun
+
+Réponse: HTTP status 204
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Création d'un texte (POST) : '/text'
+
+Body:
+```json
+{
+  "content": "<text>"
+}
+```
+
+Réponse:
+```json
+{
+  "id": "<textId>"
+}
+```
+
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Récupération d'un texte (GET) : '/text/{textId}'
+
+Body: Aucun
+
+Réponse: 
+```json
+{
+  "userId": "<textAuthorId>",
+  "username": "<textAuthName>",
+  "content": "<text>"
+}
+```
+
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Modification d'un texte (PATCH) : '/text/{textId}'
+
+Body:
+```json
+{
+  "content": "<text>"
+}
+```
+
+Réponse:
+```json
+{
+  "userId": "<textAuthorId>",
+  "username": "<textAuthName>",
+  "content": "<text>"
+}
+```
+
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
+
+#### Suppression d'un texte (DELETE) : '/text/{textId}'
+
+Body: Aucun
+
+Réponse: HTTP status 204
+
+En cas d'erreur :
+```json
+{
+  "message": "<description>"
+}
+```
