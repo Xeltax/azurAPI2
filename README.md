@@ -92,6 +92,9 @@ Dans le menu latéral de la ressource, cliquez sur **Paramètres** puis **Variab
 |COSMOS_DB_DATABASE|Nom de la base de donnée CosmosDB que vous avez donné|
 | STORAGE_ACCOUNT  |**Chaine de connexion** du compte de stockage|
 |    JWT_SECRET    |Valeur que vous souhaitez, secrète permettant d'assurer que les utilisateur se soient authentifiés auprès du service d'authentification de l'API|
+|FUNCTIONS_WORKER_RUNTIME|Mettez la valeur **node**|
+
+_Vous pouvez également définir ces valeurs dans le fichier local.settings.json de votre environnement local_
 
 Les fonctions peuvent maintenant être déployées dans l'application de fonction et fonctionneront. Cependant, elles ne serront pas sécurisées.
 
