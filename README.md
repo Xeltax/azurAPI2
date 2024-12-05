@@ -82,6 +82,8 @@ Mettre votre clé d'accès à l'API dans le header de chaque requête. Pour ce p
 ```http
 Ocp-Apim-Subscription-Key:YOUR_SUBSCRIPTION_KEY
 ```
+_Cette clé est déjà ajoutée aux requêtes de la collection postman associée au projet_
+
 ### Body
 Création de compte (POST) : '/register'
 

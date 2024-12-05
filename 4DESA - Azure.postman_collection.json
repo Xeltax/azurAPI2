@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "c66e5fe4-3ca3-426e-83ee-b4891948e52c",
+		"name": "4DESA - Azure (desaman)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26757453"
+	},
+	"item": [
+		{
+			"name": "Authentication & users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// Update credentials to create your own account\r\n{\r\n    \"username\": \"<username>\",\r\n    \"password\": \"<password>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/Login",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// Update credentials to create your own account\r\n{\r\n    \"username\": \"<username>\",\r\n    \"password\": \"<password>\",\r\n    \"role\": \"<private (default) / public>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/Register",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medias",
+			"item": [
+				{
+					"name": "Get media",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media/<blob_name>",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media",
+								"<blob_name>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete media",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media/<blob_name>",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media",
+								"<blob_name>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get media of private account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media/upload-1733351449142",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media",
+								"upload-1733351449142"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get media of public account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media/upload-1733350859554",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media",
+								"upload-1733350859554"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete media of other account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/media/upload-1733350859554",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"media",
+								"upload-1733350859554"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Texts",
+			"item": [
+				{
+					"name": "Post text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Ceci est un texte d'exemple\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get text",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/<text_id>",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"<text_id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update text",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Ceci est une nouvelle version du text d'exemple\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/<text_id>",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"<text_id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete text",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/<text_id>",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"<text_id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get text of private account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/98dad2ca-7638-486c-8219-440fde5b25f7",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"98dad2ca-7638-486c-8219-440fde5b25f7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get text of public account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/085c501c-efe4-4fa2-9f8d-54c6afa13926",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"085c501c-efe4-4fa2-9f8d-54c6afa13926"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update text other account",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Vive le module 4KUBE !\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/085c501c-efe4-4fa2-9f8d-54c6afa13926",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"085c501c-efe4-4fa2-9f8d-54c6afa13926"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete test other account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "35c925337c4a441b95f8ee2c8c38aff4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://desamanapimanagement.azure-api.net/text/085c501c-efe4-4fa2-9f8d-54c6afa13926",
+							"protocol": "https",
+							"host": [
+								"desamanapimanagement",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"text",
+								"085c501c-efe4-4fa2-9f8d-54c6afa13926"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
