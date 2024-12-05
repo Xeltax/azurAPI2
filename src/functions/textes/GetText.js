@@ -18,7 +18,7 @@ const getText = async (context, requestUserData, textId) => {
         }
         const { resources: textes } = await collection.items.query(relationQuery).fetchAll()
 
-        if (textes.lenght === 0) {
+        if (textes.length === 0) {
             context.error(`No text found for id ${textId}`)
             return {
                 status: 404,
